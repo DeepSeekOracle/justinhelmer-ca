@@ -33,3 +33,12 @@ footer.site, footer.foot { border-top:1px solid var(--line); padding:1.5rem 6vw 
 footer.site nav { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin-bottom:.7rem; }
 .chip-row { display:flex; flex-wrap:wrap; gap:.45rem; }
 .chip { display:inline-block; padding:.35rem .65rem; border:1px solid var(--line); border-radius:999px; text-decoration:none; color:var(--fg) !important; font-size:.82rem; }
+.home ol, .home ul { padding-left: 1.2rem; }
+.home .read-list { list-style: none; padding: 0; }
+.home .read-list li { margin: 0 0 .55rem; }
+.band { padding: 3rem 6vw; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(0,0,0,.25); }
+.store-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 700px) { .store-pair { grid-template-columns: 1fr; } }
+.store-pair a.mini { display: block; text-decoration: none; color: inherit; }
+.store-pair a.mini strong { display: block; color: var(--gold); margin-bottom: .35rem; font-size: 1.05rem; }
+.store-pair a.mini span { color: #ddd4c8; font-size: .9rem; }

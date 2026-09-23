@@ -2,6 +2,6 @@
 
 Official Justin Helmer branding portal: music player, lyric vault, live rooms.
 
-GitHub Pages. Custom domain `justinhelmer.ca` (CNAME in repo). asiancoastline.com stays live as the listen satellite.
+GitHub Pages: https://deepseekoracle.github.io/justinhelmer-ca/
 
-Until GoDaddy DNS/forwarding points here, the site is also at `https://deepseekoracle.github.io/justinhelmer-ca/`.
+When GoDaddy is ready: add a `CNAME` file containing `justinhelmer.ca`, point the domain at GitHub Pages (A/ALIAS records), and asiancoastline.com stays live as a listen satellite.

@@ -65,6 +65,9 @@ h1 { font-family:Cinzel,serif; color:var(--gold); margin:0 0 8px; font-size:clam
 }
 .nav-main a:hover { border-color:var(--gold); color:var(--gold); text-decoration:none; }
 .nav-main a.pri { border-color:rgba(212,175,55,.5); background:rgba(212,175,55,.12); color:var(--gold); }
+.home-back { margin:0 0 10px; font-size:.85rem; }
+.home-back a { color:var(--gold); text-decoration:none; }
+.home-back a:hover { text-decoration:underline; }
 .nav-main a.donate { border-color:rgba(0,112,186,.6); background:rgba(0,112,186,.2); color:#7ec8ff; }
 .donate-strip {
   margin:14px 0 0; padding:14px 16px; border-radius:12px;
@@ -260,7 +263,8 @@ footer { max-width:1120px; margin:24px auto 0; padding:16px; color:var(--muted);
 </head>
 <body>
 <header class="hero wrap">
-  <h1>Excavationpro — Listen Free</h1>
+  <p class="home-back"><a href="https://justinhelmer.ca/">← Home · justinhelmer.ca</a></p>
+  <h1>Justin Helmer — Listen</h1>
   <p class="sub">Epic sovereign music portal — free browser player, immutable ledger, SHA-256 vault, and live portals.
   Independent of DistroKid and Spotify. Support keeps hosting &amp; tools free for everyone.</p>
   <nav class="nav-main" id="nav-main" aria-label="All sites"></nav>
@@ -483,7 +487,8 @@ let advancing = false;
 
 // --- nav ---
 const NAV = [
-  ['▶ Listen', SITES.listen, 'pri'],
+  ['← Home', 'https://justinhelmer.ca/', 'pri'],
+  ['▶ Listen', SITES.listen, ''],
   ['Lyrics Vault', 'https://justinhelmer.ca/lyrics/', ''],
   ['Catalog', SITES.catalog, ''],
   ['Hash Vault', SITES.sovereign_vault, ''],
@@ -507,7 +512,7 @@ const NAV = [
   ['Instagram', SITES.instagram, ''],
 ];
 document.getElementById('nav-main').innerHTML = NAV.map(([label, href, cls]) =>
-  href ? `<a href="${href}" class="${cls || ''}" ${href.startsWith('http') && !href.includes('deepseekoracle.github.io/Excavationpro') ? 'target="_blank" rel="noopener"' : ''}>${label}</a>` : ''
+  href ? `<a href="${href}" class="${cls || ''}" ${href.startsWith('http') && !href.includes('justinhelmer.ca') && !href.includes('deepseekoracle.github.io/Excavationpro') ? 'target="_blank" rel="noopener"' : ''}>${label}</a>` : ''
 ).join('');
 
 // Cookie consent + AdSense (load script only after accept — policy aligned with Eternal Haven)

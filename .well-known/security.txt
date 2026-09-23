@@ -1,0 +1,3 @@
+Contact: https://justinhelmer.ca/
+Preferred-Languages: en
+Canonical: https://justinhelmer.ca/security.txt

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://justinhelmer.ca/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://justinhelmer.ca/listen.html</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://justinhelmer.ca/lyrics/</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://justinhelmer.ca/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://justinhelmer.ca/assets/og-home.jpg</image:loc>
+      <image:title>Justin Helmer — Music, Lyrics, Live rooms</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://justinhelmer.ca/listen.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://justinhelmer.ca/assets/og-listen.jpg</image:loc>
+      <image:title>Justin Helmer Listen</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://justinhelmer.ca/lyrics/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://justinhelmer.ca/assets/og-lyrics.jpg</image:loc>
+      <image:title>Justin Helmer Lyrics</image:title>
+    </image:image>
+  </url>
 </urlset>

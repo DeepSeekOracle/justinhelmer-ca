@@ -42,3 +42,13 @@ footer.site nav { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin-bottom:.7
 .store-pair a.mini { display: block; text-decoration: none; color: inherit; }
 .store-pair a.mini strong { display: block; color: var(--gold); margin-bottom: .35rem; font-size: 1.05rem; }
 .store-pair a.mini span { color: #ddd4c8; font-size: .9rem; }
+.donate-mod {
+  margin: 2.2rem 0;
+  padding: 1.4rem 1.3rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(232, 194, 122, .08);
+}
+.donate-mod h2 { margin-top: 0; }
+.donate-mod .cta-row { margin-top: .85rem; }
+.btn.paypal { background: #0070ba; border-color: #0070ba; color: #fff; }

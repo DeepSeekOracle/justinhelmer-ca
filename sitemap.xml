@@ -3,10 +3,11 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://justinhelmer.ca/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://justinhelmer.ca/assets/og-home.jpg</image:loc>
+      <image:loc>https://justinhelmer.ca/assets/og-home.jpg?v=20260925</image:loc>
       <image:title>Justin Helmer — Music, Lyrics, Live rooms</image:title>
     </image:image>
   </url>

@@ -198,9 +198,10 @@ h1 { font-family:Cinzel,serif; color:var(--gold); margin:0 0 8px; font-size:clam
 }
 /* sticky player dock */
 .dock {
-  position:sticky; top:0; z-index:120;
-  background:rgba(6,6,14,.94); border-bottom:1px solid rgba(0,240,255,.28);
-  backdrop-filter:blur(14px); box-shadow:0 12px 40px rgba(0,0,0,.5);
+  position:relative; z-index:60; margin-top:36px;
+  background:rgba(6,6,14,.96); border-top:1px solid rgba(0,240,255,.22);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(10px); box-shadow:0 -12px 40px rgba(0,0,0,.35);
 }
 .dock-inner { max-width:1120px; margin:0 auto; padding:10px 16px 12px; }
 .now { color:var(--gold); font-size:.92rem; min-height:1.25em; margin-bottom:6px; }
@@ -310,46 +311,7 @@ audio { width:100%; height:36px; }
 </style>
 </head>
 <body id="top">
-<div class="dock">
-  <div class="dock-inner">
-    <div class="now" id="now"><span>Select a track…</span><div class="sub2" id="now-meta"></div></div>
-    <div class="controls">
-      <button type="button" id="btn-prev" title="Previous (P)">⏮ Prev</button>
-      <button type="button" id="btn-play" title="Play/Pause (Space)">▶ Play</button>
-      <button type="button" id="btn-next" title="Next (N)">Next ⏭</button>
-      <button type="button" id="btn-shuffle" title="Shuffle queue (S)">Shuffle</button>
-      <button type="button" id="btn-radio" title="Radio — random forever (R)" class="radio-btn">📡 Radio</button>
-      <button type="button" id="btn-repeat" title="Repeat one track">Repeat 1</button>
-      <button type="button" id="btn-copy" title="Copy stream URL">Copy link</button>
-    </div>
-    
-    <div class="dock-extra">
-      <button type="button" class="mini" id="btn-fav" title="Favorite (F)">♡ Fav</button>
-      <button type="button" class="mini" id="btn-queue-add" title="Add to queue">＋ Queue</button>
-      <button type="button" class="mini" id="btn-share" title="Share track">Share</button>
-      <label class="vol-wrap" title="Volume">🔊 <input type="range" id="vol" min="0" max="1" step="0.01" value="1"></label>
-      <label title="Crossfade between tracks"><input type="checkbox" id="xfade"> Crossfade</label>
-      <label title="Sleep timer">Sleep
-        <select id="sleep-sel">
-          <option value="0">Off</option>
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="45">45 min</option>
-          <option value="60">60 min</option>
-          <option value="90">90 min</option>
-        </select>
-      </label>
-      <button type="button" class="mini hot" id="btn-radio-fav" title="Radio from favorites only">♥ Radio</button>
-    </div>
-    <div class="progress-wrap">
-      <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek">
-      <span class="t" id="time-label">0:00 / 0:00</span>
-    </div>
-    <div class="sleep-bar" id="sleep-bar"><i id="sleep-fill"></i></div>
 
-    <audio id="audio" controls preload="none"></audio>
-  </div>
-</div>
 <header class="hero wrap">
   <p class="home-back"><a href="https://justinhelmer.ca/">← Home · justinhelmer.ca</a></p>
   <h1>Justin Helmer — Listen</h1>
@@ -575,6 +537,47 @@ audio { width:100%; height:36px; }
   <div class="cookie-actions">
     <button type="button" class="accept" id="cookieAccept">Accept cookies</button>
     <button type="button" id="cookieDecline">Essential only</button>
+  </div>
+</div>
+
+<div class="dock">
+  <div class="dock-inner">
+    <div class="now" id="now"><span>Select a track…</span><div class="sub2" id="now-meta"></div></div>
+    <div class="controls">
+      <button type="button" id="btn-prev" title="Previous (P)">⏮ Prev</button>
+      <button type="button" id="btn-play" title="Play/Pause (Space)">▶ Play</button>
+      <button type="button" id="btn-next" title="Next (N)">Next ⏭</button>
+      <button type="button" id="btn-shuffle" title="Shuffle queue (S)">Shuffle</button>
+      <button type="button" id="btn-radio" title="Radio — random forever (R)" class="radio-btn">📡 Radio</button>
+      <button type="button" id="btn-repeat" title="Repeat one track">Repeat 1</button>
+      <button type="button" id="btn-copy" title="Copy stream URL">Copy link</button>
+    </div>
+    
+    <div class="dock-extra">
+      <button type="button" class="mini" id="btn-fav" title="Favorite (F)">♡ Fav</button>
+      <button type="button" class="mini" id="btn-queue-add" title="Add to queue">＋ Queue</button>
+      <button type="button" class="mini" id="btn-share" title="Share track">Share</button>
+      <label class="vol-wrap" title="Volume">🔊 <input type="range" id="vol" min="0" max="1" step="0.01" value="1"></label>
+      <label title="Crossfade between tracks"><input type="checkbox" id="xfade"> Crossfade</label>
+      <label title="Sleep timer">Sleep
+        <select id="sleep-sel">
+          <option value="0">Off</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+          <option value="45">45 min</option>
+          <option value="60">60 min</option>
+          <option value="90">90 min</option>
+        </select>
+      </label>
+      <button type="button" class="mini hot" id="btn-radio-fav" title="Radio from favorites only">♥ Radio</button>
+    </div>
+    <div class="progress-wrap">
+      <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek">
+      <span class="t" id="time-label">0:00 / 0:00</span>
+    </div>
+    <div class="sleep-bar" id="sleep-bar"><i id="sleep-fill"></i></div>
+
+    <audio id="audio" controls preload="none"></audio>
   </div>
 </div>
 

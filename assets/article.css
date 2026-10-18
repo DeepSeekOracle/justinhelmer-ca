@@ -15,7 +15,12 @@ header.site { background: rgba(23,28,38,.96); border-bottom: 1px solid var(--lin
 .navlinks a { text-decoration: none; color: var(--muted); }
 .navlinks a:hover, .navlinks a[aria-current="page"] { color: var(--accent2); }
 .navlinks a.nav-tools { color: var(--accent2); font-weight: 700; border: 1px solid var(--accent2); border-radius: 999px; padding: .05rem .5rem; }
-.hero { padding: 2rem 0 1rem; }
+.hero {
+  padding: 2rem 0 1.4rem; border-radius: 0 0 14px 14px;
+  background:
+    linear-gradient(180deg, rgba(9,7,6,.68) 0%, rgba(9,7,6,.52) 45%, rgba(9,7,6,.92) 100%),
+    url("/assets/player-bg.jpg") center 45% / cover no-repeat;
+}
 .hero h1 { font-size: clamp(1.55rem, 3.8vw, 2.15rem); line-height: 1.25; margin: 0 0 .7rem; color: #fff; }
 .lead { color: var(--muted); font-size: 1.05rem; margin: 0 0 1.05rem; }
 .cta-row { display: flex; flex-wrap: wrap; gap: .55rem; }

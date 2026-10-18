@@ -83,8 +83,8 @@ header.hero {
 .hero-cta a { display:inline-flex; align-items:center; gap:8px; padding:11px 16px; border-radius:9px; font-weight:700; font-size:.9rem; border:1px solid rgba(0,240,255,.3); background:rgba(0,240,255,.08); color:var(--text); }
 .hero-cta a.primary { background:linear-gradient(135deg,var(--gold),#e8c96a); border-color:var(--gold); color:#140f08; }
 .hero-cta a:hover { text-decoration:none; border-color:var(--gold); }
-.player-wave { margin:14px 0 2px; padding:12px 14px 9px; border:1px solid rgba(0,240,255,.18); border-radius:12px; background:rgba(8,8,16,.55); }
-.player-wave canvas { display:block; width:100%; height:96px; }
+.player-wave { margin:14px 0 10px; padding:14px 16px 11px; border:1px solid rgba(0,240,255,.18); border-radius:12px; background:rgba(8,8,16,.55); }
+.player-wave canvas { display:block; width:100%; height:220px; }
 .wave-meta { display:flex; justify-content:space-between; gap:12px; margin-top:6px; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
 .wave-meta b { color:var(--gold); font-weight:600; }
 h1 { font-family:Cinzel,serif; color:var(--gold); margin:0 0 8px; font-size:clamp(1.4rem,3vw,1.9rem); }
@@ -198,9 +198,9 @@ h1 { font-family:Cinzel,serif; color:var(--gold); margin:0 0 8px; font-size:clam
 }
 /* sticky player dock */
 .dock {
-  position:fixed; left:0; right:0; bottom:0; z-index:50;
-  background:rgba(6,6,14,.96); border-top:1px solid rgba(0,240,255,.25);
-  backdrop-filter:blur(10px); box-shadow:0 -8px 30px rgba(0,0,0,.45);
+  position:sticky; top:0; z-index:120;
+  background:rgba(6,6,14,.94); border-bottom:1px solid rgba(0,240,255,.28);
+  backdrop-filter:blur(14px); box-shadow:0 12px 40px rgba(0,0,0,.5);
 }
 .dock-inner { max-width:1120px; margin:0 auto; padding:10px 16px 12px; }
 .now { color:var(--gold); font-size:.92rem; min-height:1.25em; margin-bottom:6px; }
@@ -291,9 +291,50 @@ footer { max-width:1120px; margin:24px auto 0; padding:16px; color:var(--muted);
 .sleep-bar.on { display:block; }
 .sleep-bar i { display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--mag),var(--cyan)); transform-origin:left; }
 
+@media (max-width:640px){ .player-wave canvas{height:150px} .dock-inner{padding:8px 12px 10px} .now{font-size:.82rem} }
 </style>
 </head>
 <body>
+<div class="dock">
+  <div class="dock-inner">
+    <div class="now" id="now"><span>Select a track…</span><div class="sub2" id="now-meta"></div></div>
+    <div class="controls">
+      <button type="button" id="btn-prev" title="Previous (P)">⏮ Prev</button>
+      <button type="button" id="btn-play" title="Play/Pause (Space)">▶ Play</button>
+      <button type="button" id="btn-next" title="Next (N)">Next ⏭</button>
+      <button type="button" id="btn-shuffle" title="Shuffle queue (S)">Shuffle</button>
+      <button type="button" id="btn-radio" title="Radio — random forever (R)" class="radio-btn">📡 Radio</button>
+      <button type="button" id="btn-repeat" title="Repeat one track">Repeat 1</button>
+      <button type="button" id="btn-copy" title="Copy stream URL">Copy link</button>
+    </div>
+    
+    <div class="dock-extra">
+      <button type="button" class="mini" id="btn-fav" title="Favorite (F)">♡ Fav</button>
+      <button type="button" class="mini" id="btn-queue-add" title="Add to queue">＋ Queue</button>
+      <button type="button" class="mini" id="btn-share" title="Share track">Share</button>
+      <label class="vol-wrap" title="Volume">🔊 <input type="range" id="vol" min="0" max="1" step="0.01" value="1"></label>
+      <label title="Crossfade between tracks"><input type="checkbox" id="xfade"> Crossfade</label>
+      <label title="Sleep timer">Sleep
+        <select id="sleep-sel">
+          <option value="0">Off</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+          <option value="45">45 min</option>
+          <option value="60">60 min</option>
+          <option value="90">90 min</option>
+        </select>
+      </label>
+      <button type="button" class="mini hot" id="btn-radio-fav" title="Radio from favorites only">♥ Radio</button>
+    </div>
+    <div class="progress-wrap">
+      <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek">
+      <span class="t" id="time-label">0:00 / 0:00</span>
+    </div>
+    <div class="sleep-bar" id="sleep-bar"><i id="sleep-fill"></i></div>
+
+    <audio id="audio" controls preload="none"></audio>
+  </div>
+</div>
 <header class="hero wrap">
   <p class="home-back"><a href="https://justinhelmer.ca/">← Home · justinhelmer.ca</a></p>
   <h1>Justin Helmer — Listen</h1>
@@ -319,74 +360,7 @@ footer { max-width:1120px; margin:24px auto 0; padding:16px; color:var(--muted);
   </div>
 </header>
 
-<section class="wrap player-notes" id="about-player">
-  <style>
-    .player-notes { max-width: 820px; margin: 1.4rem auto 1.2rem; padding: 0 1.15rem; color: #d8d8e8; line-height: 1.7; }
-    .player-notes h2 { color: #fff; font-size: 1.22rem; margin: 1.6rem 0 .45rem; }
-    .player-notes h3 { color: #fff; font-size: 1.02rem; margin: 1rem 0 .3rem; }
-    .player-notes p, .player-notes li { color: #b9b9cc; }
-    .player-notes a { color: #7ec8ff; }
-    .player-notes .card { background:#171c26; border:1px solid #2a3344; border-radius:12px; padding:1.3rem 1.2rem; margin:1rem 0; }
-    .player-notes .author-box { background:#171c26; border:1px solid #2a3344; border-radius:12px; padding:1rem 1.2rem; margin:1rem 0; font-size:.9rem; }
-    .player-notes .faq h3 { margin-top:1.1rem; }
-  </style>
 
-<article class="card">
-  <h2>Open the player</h2>
-  <p>This page is the full browser player. It carries the public catalog: search by title or ISRC, filter by album or Haven audio, queue tracks, shuffle, run radio, save local favorites, crossfade, set a sleep timer, and install the shell as an app.</p>
-  <p>The player is below these instructions: the catalog list, queue, radio, favorites, ledger, and live portals. Use the “Play the catalog” button to jump straight to it, or read the short guide first.</p>
-  <p><a href="#list"><strong>Jump to the player ↓</strong></a></p>
-  <h2>No account, no upload</h2>
-  <p>You do not need a signup. Favorites and queue are stored in your browser, not on an account. The player does not upload your files or build a listening profile. If you clear site data, the local favorites clear with it.</p>
-</article>
-<article class="card">
-  <h2>What to do first</h2>
-  <ol>
-    <li>Open <a href="/listen.html">the player</a>.</li>
-    <li>Search an album or track title rather than scrolling the whole catalog.</li>
-    <li>Use the queue for three or four tracks; turn crossfade off to hear the transitions as recorded.</li>
-    <li>Use radio when you want the player to keep going.</li>
-    <li>Use the heart for a local favorites list and the share button for a link.</li>
-  </ol>
-  <h2>Stores and lyrics</h2>
-  <p>If you want the catalog where you already listen, use the official smart links: <a href="https://ffm.to/justin-helmer">ffm.to/justin-helmer</a> for the name and <a href="https://ffm.to/eovnvo9">ffm.to/eovnvo9</a> for Excavationpro. The <a href="/lyrics/">lyric vault</a> holds the words with a mini player for mapped streams. The <a href="/music.html">music page</a> explains the catalog and the master/stream line.</p>
-  <h2>Troubleshooting</h2>
-  <ul>
-    <li><strong>One track will not start.</strong> Try another track; if only one fails, the public file may be missing. The ledger in the player shows what the catalog expected.</li>
-    <li><strong>Playback stops on mobile.</strong> Some browsers suspend background audio; keep the tab active or use the installed shell.</li>
-    <li><strong>The list is empty.</strong> Clear the search and set the filter back to All.</li>
-    <li><strong>No sound.</strong> Check the player volume, the system volume, and whether another tab owns the audio session.</li>
-  </ul>
-</article>
-<article class="card faq">
-  <h2>FAQ</h2>
-  <h3>Why does this domain have its own player?</h3>
-  <p>Because the name should have its own branded player. asiancoastline.com remains a sister listening domain; justinhelmer.ca/listen.html is the player for this name, with the same catalog family.</p>
-  <h3>Do I need an account?</h3>
-  <p>No. Favorites and queue are local to your browser.</p>
-  <h3>Can I download the tracks?</h3>
-  <p>The player streams; it is not a download store. Store links are the purchase route where available.</p>
-  <h3>Does it work on a phone?</h3>
-  <p>Yes. The player is responsive and can be installed to the home screen.</p>
-</article>
-<div class="author-box">
-  <strong>Justin Helmer</strong> records as <a href="https://excavationpro.ca/">Excavationpro</a>.
-  This is the name portal: bio, catalog, lyrics, press, and the doors to the free player.
-</div>
-
-<h2>Why this player lives here</h2>
-<p>This is the branded listening room for Justin Helmer. It is not a redirect and it is not a copy of the sister site: it is the player that belongs to this name, with the same catalog family and its own front door. If you came from a store badge, a lyric, or a search for the person behind the records, you should be able to press play without leaving the brand.</p>
-<p>asiancoastline.com still exists and still carries the public player. It is a sister listening domain, useful for a different entry point and a different audience. The two players share the catalog, but they are not the same room. Keeping this one here means the name has a listening surface of its own; keeping the sister site means there is a second door for people who find the catalog through the coast.</p>
-<p>Nothing about the player&rsquo;s behavior changes because of the branding. Search, queue, radio, favorites, crossfade, sleep, the installed shell, and the lyric map all work the same way. The only difference is the name on the room. That is the point: the catalog can travel, but the identity should not be outsourced to another domain.</p>
-<p>If you want the wider workshop, the <a href="https://bpmfinder.ca/tools.html">tools hub</a> maps the tempo tool, the soundboard, the games, and the guides. If you want the words, the <a href="/lyrics/">lyric vault</a> is here. If you want the artist house, <a href="https://excavationpro.ca/">excavationpro.ca</a> is the workshop copy. This page is the player for the name.</p>
-<p><strong>More from the workshop:</strong>
-<a href="https://excavationpro.ca/">Excavationpro</a> &middot;
-<a href="https://asiancoastline.com/">Asian Coastline</a> &middot;
-<a href="https://bpmfinder.ca/">BPMfinder</a> &middot;
-<a href="https://deepseekoracle.com/">DeepSeek Oracle</a> &middot;
-<a href="https://eternalhaven.ca/">Eternal Haven</a> &middot;
-<a href="https://chatagent.ca/">Chatagent</a></p>
-</section>
 
 <div class="wrap">
   <div class="player-wave" aria-label="Live audio waveform">
@@ -511,6 +485,74 @@ footer { max-width:1120px; margin:24px auto 0; padding:16px; color:var(--muted);
   </div>
 </div>
 
+<section class="wrap player-notes" id="about-player">
+  <style>
+    .player-notes { max-width: 820px; margin: 1.4rem auto 1.2rem; padding: 0 1.15rem; color: #d8d8e8; line-height: 1.7; }
+    .player-notes h2 { color: #fff; font-size: 1.22rem; margin: 1.6rem 0 .45rem; }
+    .player-notes h3 { color: #fff; font-size: 1.02rem; margin: 1rem 0 .3rem; }
+    .player-notes p, .player-notes li { color: #b9b9cc; }
+    .player-notes a { color: #7ec8ff; }
+    .player-notes .card { background:#171c26; border:1px solid #2a3344; border-radius:12px; padding:1.3rem 1.2rem; margin:1rem 0; }
+    .player-notes .author-box { background:#171c26; border:1px solid #2a3344; border-radius:12px; padding:1rem 1.2rem; margin:1rem 0; font-size:.9rem; }
+    .player-notes .faq h3 { margin-top:1.1rem; }
+  </style>
+
+<article class="card">
+  <h2>Open the player</h2>
+  <p>This page is the full browser player. It carries the public catalog: search by title or ISRC, filter by album or Haven audio, queue tracks, shuffle, run radio, save local favorites, crossfade, set a sleep timer, and install the shell as an app.</p>
+  <p>The player is below these instructions: the catalog list, queue, radio, favorites, ledger, and live portals. Use the “Play the catalog” button to jump straight to it, or read the short guide first.</p>
+  <p><a href="#list"><strong>Jump to the player ↓</strong></a></p>
+  <h2>No account, no upload</h2>
+  <p>You do not need a signup. Favorites and queue are stored in your browser, not on an account. The player does not upload your files or build a listening profile. If you clear site data, the local favorites clear with it.</p>
+</article>
+<article class="card">
+  <h2>What to do first</h2>
+  <ol>
+    <li>Open <a href="/listen.html">the player</a>.</li>
+    <li>Search an album or track title rather than scrolling the whole catalog.</li>
+    <li>Use the queue for three or four tracks; turn crossfade off to hear the transitions as recorded.</li>
+    <li>Use radio when you want the player to keep going.</li>
+    <li>Use the heart for a local favorites list and the share button for a link.</li>
+  </ol>
+  <h2>Stores and lyrics</h2>
+  <p>If you want the catalog where you already listen, use the official smart links: <a href="https://ffm.to/justin-helmer">ffm.to/justin-helmer</a> for the name and <a href="https://ffm.to/eovnvo9">ffm.to/eovnvo9</a> for Excavationpro. The <a href="/lyrics/">lyric vault</a> holds the words with a mini player for mapped streams. The <a href="/music.html">music page</a> explains the catalog and the master/stream line.</p>
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li><strong>One track will not start.</strong> Try another track; if only one fails, the public file may be missing. The ledger in the player shows what the catalog expected.</li>
+    <li><strong>Playback stops on mobile.</strong> Some browsers suspend background audio; keep the tab active or use the installed shell.</li>
+    <li><strong>The list is empty.</strong> Clear the search and set the filter back to All.</li>
+    <li><strong>No sound.</strong> Check the player volume, the system volume, and whether another tab owns the audio session.</li>
+  </ul>
+</article>
+<article class="card faq">
+  <h2>FAQ</h2>
+  <h3>Why does this domain have its own player?</h3>
+  <p>Because the name should have its own branded player. asiancoastline.com remains a sister listening domain; justinhelmer.ca/listen.html is the player for this name, with the same catalog family.</p>
+  <h3>Do I need an account?</h3>
+  <p>No. Favorites and queue are local to your browser.</p>
+  <h3>Can I download the tracks?</h3>
+  <p>The player streams; it is not a download store. Store links are the purchase route where available.</p>
+  <h3>Does it work on a phone?</h3>
+  <p>Yes. The player is responsive and can be installed to the home screen.</p>
+</article>
+<div class="author-box">
+  <strong>Justin Helmer</strong> records as <a href="https://excavationpro.ca/">Excavationpro</a>.
+  This is the name portal: bio, catalog, lyrics, press, and the doors to the free player.
+</div>
+
+<h2>Why this player lives here</h2>
+<p>This is the branded listening room for Justin Helmer. It is not a redirect and it is not a copy of the sister site: it is the player that belongs to this name, with the same catalog family and its own front door. If you came from a store badge, a lyric, or a search for the person behind the records, you should be able to press play without leaving the brand.</p>
+<p>asiancoastline.com still exists and still carries the public player. It is a sister listening domain, useful for a different entry point and a different audience. The two players share the catalog, but they are not the same room. Keeping this one here means the name has a listening surface of its own; keeping the sister site means there is a second door for people who find the catalog through the coast.</p>
+<p>Nothing about the player&rsquo;s behavior changes because of the branding. Search, queue, radio, favorites, crossfade, sleep, the installed shell, and the lyric map all work the same way. The only difference is the name on the room. That is the point: the catalog can travel, but the identity should not be outsourced to another domain.</p>
+<p>If you want the wider workshop, the <a href="https://bpmfinder.ca/tools.html">tools hub</a> maps the tempo tool, the soundboard, the games, and the guides. If you want the words, the <a href="/lyrics/">lyric vault</a> is here. If you want the artist house, <a href="https://excavationpro.ca/">excavationpro.ca</a> is the workshop copy. This page is the player for the name.</p>
+<p><strong>More from the workshop:</strong>
+<a href="https://excavationpro.ca/">Excavationpro</a> &middot;
+<a href="https://asiancoastline.com/">Asian Coastline</a> &middot;
+<a href="https://bpmfinder.ca/">BPMfinder</a> &middot;
+<a href="https://deepseekoracle.com/">DeepSeek Oracle</a> &middot;
+<a href="https://eternalhaven.ca/">Eternal Haven</a> &middot;
+<a href="https://chatagent.ca/">Chatagent</a></p>
+</section>
 <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none">
   <strong>Cookies &amp; ads</strong>
   <p style="margin:6px 0 0">Cookies are used for the site and, on editorial pages, optional Google AdSense ads.
@@ -542,46 +584,7 @@ footer { max-width:1120px; margin:24px auto 0; padding:16px; color:var(--muted);
 </div>
 <div class="toast-host" id="toast-host" aria-live="polite"></div>
 
-<div class="dock">
-  <div class="dock-inner">
-    <div class="now" id="now"><span>Select a track…</span><div class="sub2" id="now-meta"></div></div>
-    <div class="controls">
-      <button type="button" id="btn-prev" title="Previous (P)">⏮ Prev</button>
-      <button type="button" id="btn-play" title="Play/Pause (Space)">▶ Play</button>
-      <button type="button" id="btn-next" title="Next (N)">Next ⏭</button>
-      <button type="button" id="btn-shuffle" title="Shuffle queue (S)">Shuffle</button>
-      <button type="button" id="btn-radio" title="Radio — random forever (R)" class="radio-btn">📡 Radio</button>
-      <button type="button" id="btn-repeat" title="Repeat one track">Repeat 1</button>
-      <button type="button" id="btn-copy" title="Copy stream URL">Copy link</button>
-    </div>
-    
-    <div class="dock-extra">
-      <button type="button" class="mini" id="btn-fav" title="Favorite (F)">♡ Fav</button>
-      <button type="button" class="mini" id="btn-queue-add" title="Add to queue">＋ Queue</button>
-      <button type="button" class="mini" id="btn-share" title="Share track">Share</button>
-      <label class="vol-wrap" title="Volume">🔊 <input type="range" id="vol" min="0" max="1" step="0.01" value="1"></label>
-      <label title="Crossfade between tracks"><input type="checkbox" id="xfade"> Crossfade</label>
-      <label title="Sleep timer">Sleep
-        <select id="sleep-sel">
-          <option value="0">Off</option>
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="45">45 min</option>
-          <option value="60">60 min</option>
-          <option value="90">90 min</option>
-        </select>
-      </label>
-      <button type="button" class="mini hot" id="btn-radio-fav" title="Radio from favorites only">♥ Radio</button>
-    </div>
-    <div class="progress-wrap">
-      <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek">
-      <span class="t" id="time-label">0:00 / 0:00</span>
-    </div>
-    <div class="sleep-bar" id="sleep-bar"><i id="sleep-fill"></i></div>
 
-    <audio id="audio" controls preload="none"></audio>
-  </div>
-</div>
 
 
 
@@ -1701,7 +1704,35 @@ rebuildFilter();
   var ctx = canvas.getContext('2d');
   var audio = document.getElementById('audio');
   var state = document.getElementById('waveState');
-  var raf = null, last = 0;
+  var DPR = Math.min(2, window.devicePixelRatio || 1);
+  var analyser = null, freq = null, source = null, actx = null, tried = false;
+  var raf = 0, pulse = 0, particles = [];
+
+  function fit() {
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.max(320, Math.round(r.width * DPR));
+    canvas.height = Math.max(140, Math.round(r.height * DPR));
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  function initAnalyser() {
+    if (tried) return;
+    tried = true;
+    if (!audio || location.hostname !== 'justinhelmer.ca') return;
+    try {
+      audio.crossOrigin = 'anonymous';
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      actx = new AC();
+      analyser = actx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.82;
+      source = actx.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(actx.destination);
+      freq = new Uint8Array(analyser.frequencyBinCount);
+    } catch (e) { analyser = null; }
+  }
 
   function hash(str) {
     var h = 2166136261;
@@ -1709,52 +1740,110 @@ rebuildFilter();
     return h >>> 0;
   }
 
-  function currentName() {
+  function trackName() {
     var n = document.getElementById('now-title');
     return n && n.textContent ? n.textContent : 'Justin Helmer';
   }
 
-  function draw(now) {
-    raf = null;
-    var w = canvas.width, h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-    var name = currentName();
-    var seed = hash(name);
-    var dur = audio && isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 1;
-    var prog = audio ? Math.min(1, audio.currentTime / dur) : 0;
-    var playing = audio && !audio.paused && !audio.ended;
-    var bars = 120, gap = 2, bw = (w - gap * (bars - 1)) / bars;
-    for (var i = 0; i < bars; i++) {
-      var n = Math.sin((i + (seed % 41)) * 0.37) * 0.5 + Math.sin((i + (seed % 17)) * 0.13) * 0.3 + 0.5;
-      var bh = Math.max(4, Math.min(h - 10, n * (h - 14)));
-      var x = i * (bw + gap);
-      var y = (h - bh) / 2;
-      var active = i / bars <= prog;
-      var g = ctx.createLinearGradient(0, y, 0, y + bh);
-      if (active) { g.addColorStop(0, 'rgba(232,194,122,.95)'); g.addColorStop(1, 'rgba(74,212,200,.75)'); }
-      else { g.addColorStop(0, 'rgba(74,212,200,.20)'); g.addColorStop(1, 'rgba(126,200,255,.12)'); }
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.roundRect(x, y, Math.max(1, bw), bh, 1.5);
-      ctx.fill();
+  function spectrum(t) {
+    var out = [], seed = hash(trackName());
+    for (var i = 0; i < 96; i++) {
+      var v = 0.34 + 0.26 * Math.sin(i * 0.21 + t * 2.1 + (seed % 17));
+      v += 0.18 * Math.sin(i * 0.07 - t * 1.35 + (seed % 29));
+      v += 0.12 * Math.sin(i * 0.43 + t * 3.7);
+      out.push(Math.max(0.02, Math.min(1, v)));
     }
-    if (state) state.textContent = playing ? 'live' : (prog > 0 ? 'paused' : 'idle');
-    if (playing && !raf) raf = requestAnimationFrame(draw);
+    return out;
   }
 
-  function refresh() { if (!raf) raf = requestAnimationFrame(draw); }
-  if (audio) {
-    audio.addEventListener('play', refresh);
-    audio.addEventListener('pause', refresh);
-    audio.addEventListener('ended', refresh);
-    audio.addEventListener('loadedmetadata', refresh);
-    audio.addEventListener('seeked', refresh);
-    audio.addEventListener('timeupdate', function () { if (audio.paused) refresh(); });
+  function draw(ts) {
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) { raf = requestAnimationFrame(draw); return; }
+    if (canvas.width !== Math.round(w * DPR) || canvas.height !== Math.round(h * DPR)) fit();
+    var playing = audio && !audio.paused && !audio.ended;
+    var t = (ts || 0) / 1000 + (audio ? audio.currentTime : 0);
+    var data = spectrum(t);
+    if (analyser && playing) {
+      analyser.getByteFrequencyData(freq);
+      data = [];
+      for (var k = 0; k < 96; k++) {
+        var idx = Math.floor(Math.pow(k / 96, 1.7) * (freq.length - 1));
+        data.push(freq[idx] / 255);
+      }
+    }
+    var bass = 0; for (var b = 0; b < 10; b++) bass += data[b] || 0; bass /= 10;
+    pulse += (bass - pulse) * 0.16;
+
+    ctx.clearRect(0, 0, w, h);
+    var bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, 'rgba(6,6,14,.9)');
+    bg.addColorStop(1, 'rgba(10,10,22,.98)');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = 'rgba(0,240,255,.07)'; ctx.lineWidth = 1;
+    for (var gx = 0; gx < w; gx += 48) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
+    for (var gy = 0; gy < h; gy += 32) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
+
+    var cx = w / 2, cy = h * 0.56, maxH = h * 0.34;
+    var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, w * 0.42);
+    grad.addColorStop(0, 'rgba(0,240,255,' + (0.06 + pulse * 0.18) + ')');
+    grad.addColorStop(1, 'rgba(0,240,255,0)');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, w, h);
+
+    var bars = 96, step = w / bars;
+    for (var i = 0; i < bars; i++) {
+      var v = data[i] || 0, bh = Math.max(3, v * maxH);
+      var x = i * step + step * 0.18, bw = Math.max(1, step * 0.64);
+      var g = ctx.createLinearGradient(0, cy - bh, 0, cy + bh);
+      g.addColorStop(0, 'rgba(232,194,122,.95)');
+      g.addColorStop(0.5, 'rgba(0,240,255,.9)');
+      g.addColorStop(1, 'rgba(255,77,210,.55)');
+      ctx.fillStyle = g;
+      ctx.shadowColor = 'rgba(0,240,255,.65)';
+      ctx.shadowBlur = 10 + pulse * 18;
+      ctx.fillRect(x, cy - bh, bw, bh * 2);
+    }
+    ctx.shadowBlur = 0;
+
+    ctx.beginPath();
+    for (var j = 0; j < bars; j++) {
+      var yy = cy + Math.sin(j * 0.28 + t * 2.2) * (5 + (data[j] || 0) * 18);
+      if (j === 0) ctx.moveTo(0, yy); else ctx.lineTo(j * step, yy);
+    }
+    ctx.strokeStyle = 'rgba(0,240,255,.55)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+    if (playing && Math.random() < 0.45 + bass * 0.4) {
+      particles.push({ x: Math.random() * w, y: h, v: 0.4 + Math.random() * 1.6, life: 1, c: Math.random() > 0.5 ? '0,240,255' : '232,194,122' });
+    }
+    for (var pi = particles.length - 1; pi >= 0; pi--) {
+      var pt = particles[pi]; pt.y -= pt.v; pt.life -= 0.012;
+      if (pt.life <= 0) { particles.splice(pi, 1); continue; }
+      ctx.fillStyle = 'rgba(' + pt.c + ',' + pt.life * 0.7 + ')';
+      ctx.fillRect(pt.x, pt.y, 1.6, 1.6);
+    }
+    if (particles.length > 180) particles.splice(0, particles.length - 180);
+
+    var dur = audio && isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+    var prog = dur ? Math.min(1, audio.currentTime / dur) : 0;
+    ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, h - 4, w, 2);
+    ctx.fillStyle = 'rgba(232,194,122,.9)'; ctx.fillRect(0, h - 4, w * prog, 2);
+
+    if (state) state.textContent = playing ? 'live' : (prog > 0 ? 'paused' : 'idle');
+    raf = requestAnimationFrame(draw);
   }
-  document.addEventListener('click', function (e) {
-    if (e.target.closest('[data-play], .row, #btn-play, #btn-next, #btn-prev')) setTimeout(refresh, 120);
-  });
-  refresh();
+
+  function start() { if (!raf) raf = requestAnimationFrame(draw); }
+
+  if (audio) {
+    audio.addEventListener('play', function () { initAnalyser(); if (actx && actx.state === 'suspended') actx.resume(); start(); });
+    audio.addEventListener('pause', start);
+    audio.addEventListener('ended', start);
+    audio.addEventListener('seeked', start);
+    audio.addEventListener('loadedmetadata', start);
+  }
+  window.addEventListener('resize', fit);
+  fit();
+  start();
 })();
 </script>
 </body>

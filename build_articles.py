@@ -203,7 +203,7 @@ def hero(page: dict) -> str:
   <p class="lead">{page["lead"]}</p>
   <p class="article-meta">{kind} &middot; Justin Helmer &middot; <time datetime="{page.get("updated", UPDATED)}">Updated {page.get("updated", UPDATED)}</time> &middot; {page.get("minutes", "6 min read")} &middot; {tags}</p>
   <div class="cta-row">
-    <a class="btn primary" href="https://asiancoastline.com/listen.html">Open the free player</a>
+    <a class="btn primary" href="/listen.html">Open the free player</a>
     <a class="btn" href="/music.html">The catalog</a>
   </div>
 </section>"""
@@ -211,6 +211,8 @@ def hero(page: dict) -> str:
 
 def build() -> None:
     for slug, page in PAGES.items():
+        if slug == "listen.html":
+            continue  # hand-maintained player; guide content is appended inside it
         canonical = SITE + page["path"]
         head = HEAD.format(title=page["title"], desc=attr(page["desc"]), canonical=canonical,
                            pub=PUB, og_title=attr(page["title"]),

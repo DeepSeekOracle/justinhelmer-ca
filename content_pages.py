@@ -37,7 +37,7 @@ PAGES["music.html"] = dict(
 {AD}
 <article class="card">
   <h2>Where to listen</h2>
-  <p>The canonical free player is <a href="https://asiancoastline.com/listen.html">asiancoastline.com/listen.html</a>. It carries the public catalog, search, queue, radio, favorites, and an installed-app shell. No account is required. This domain links to that player instead of running a second copy of the same 11,000-track catalog; one listening room is easier to maintain and easier to trust.</p>
+  <p>The free player is <a href="/listen.html">justinhelmer.ca/listen.html</a>. It carries the public catalog, search, queue, radio, favorites, and an installed-app shell. No account is required. This is the branded player for the name; <a href="https://asiancoastline.com/listen.html">asiancoastline.com</a> remains a sister listening domain, not a replacement.</p>
   <p>If you want the catalog in the stores you already use, the two official smart links are <a href="https://ffm.to/justin-helmer">ffm.to/justin-helmer</a> for the name and <a href="https://ffm.to/eovnvo9">ffm.to/eovnvo9</a> for Excavationpro. Spotify, YouTube Music, and Audius are linked from the home page. The free player and the stores are different doors to the same work.</p>
   <h2>Lyrics and live rooms</h2>
   <p>The <a href="/lyrics/">lyric vault</a> holds the words with a search and a mini player for mapped streams. The live rooms on Kick, Rumble, and Twitch are treated as radio: a place to work, listen, and talk, not a hard sell. Links are on the home page and in the player&rsquo;s live tab.</p>
@@ -159,7 +159,7 @@ PAGES["press.html"] = dict(
     <li><strong>Based:</strong> Canada</li>
     <li><strong>Genres:</strong> experimental hip-hop, electronic, texture</li>
     <li><strong>Model:</strong> independent; free public streams; masters offline</li>
-    <li><strong>Player:</strong> asiancoastline.com/listen.html</li>
+    <li><strong>Player:</strong> justinhelmer.ca/listen.html</li>
     <li><strong>Artist house:</strong> excavationpro.ca</li>
     <li><strong>Lyrics:</strong> justinhelmer.ca/lyrics/</li>
   </ul>
@@ -193,18 +193,18 @@ PAGES["press.html"] = dict(
 # ---------------------------------------------------------------- listening guide
 PAGES["listen.html"] = dict(
     title="How to Listen — Justin Helmer / Excavationpro",
-    desc="The free listening route for the Justin Helmer / Excavationpro catalog: the canonical player, no account, stores, lyrics, live rooms, and troubleshooting.",
+    desc="The free listening route for the Justin Helmer / Excavationpro catalog: the branded player on this domain, no account, stores, lyrics, live rooms, and troubleshooting.",
     path="/listen.html",
     active="music",
     h1="How to listen to the catalog",
-    lead="The canonical free player lives at asiancoastline.com. This page is the guide: what to open, what you can do, and where the stores and lyrics fit.",
+    lead="The branded player lives on justinhelmer.ca. This page is the guide: what to open, what you can do, and where the stores and lyrics fit.",
     minutes="6 min read",
     updated="2026-10-20",
     tags=["listen", "player", "guide"],
     body=f"""
 <article class="card">
-  <h2>Open the canonical player</h2>
-  <p>The full browser player is at <a href="https://asiancoastline.com/listen.html">asiancoastline.com/listen.html</a>. It carries the public catalog: search by title or ISRC, filter by album or Haven audio, queue tracks, shuffle, run radio, save local favorites, crossfade, set a sleep timer, and install the shell as an app.</p>
+  <h2>Open the player</h2>
+  <p>The full browser player is at <a href="/listen.html">justinhelmer.ca/listen.html</a>. It carries the public catalog: search by title or ISRC, filter by album or Haven audio, queue tracks, shuffle, run radio, save local favorites, crossfade, set a sleep timer, and install the shell as an app.</p>
   <p>This domain does not run a second copy of the same 11,000-track catalog. One player is easier to maintain, faster to fix, and honest about where the listening room actually is. The name portal points to the room; the room does the playing.</p>
   <h2>No account, no upload</h2>
   <p>You do not need a signup. Favorites and queue are stored in your browser, not on an account. The player does not upload your files or build a listening profile. If you clear site data, the local favorites clear with it.</p>
@@ -212,7 +212,7 @@ PAGES["listen.html"] = dict(
 <article class="card">
   <h2>What to do first</h2>
   <ol>
-    <li>Open <a href="https://asiancoastline.com/listen.html">the player</a>.</li>
+    <li>Open <a href="/listen.html">the player</a>.</li>
     <li>Search an album or track title rather than scrolling the whole catalog.</li>
     <li>Use the queue for three or four tracks; turn crossfade off to hear the transitions as recorded.</li>
     <li>Use radio when you want the player to keep going.</li>
@@ -230,8 +230,8 @@ PAGES["listen.html"] = dict(
 </article>
 <article class="card faq">
   <h2>FAQ</h2>
-  <h3>Why is the player on another domain?</h3>
-  <p>asiancoastline.com is the listening room. justinhelmer.ca is the name portal. One canonical player avoids duplicate catalogs and duplicate maintenance.</p>
+  <h3>Why does this domain have its own player?</h3>
+  <p>Because the name should have its own branded player. asiancoastline.com remains a sister listening domain; justinhelmer.ca/listen.html is the player for this name, with the same catalog family.</p>
   <h3>Do I need an account?</h3>
   <p>No. Favorites and queue are local to your browser.</p>
   <h3>Can I download the tracks?</h3>
@@ -242,7 +242,7 @@ PAGES["listen.html"] = dict(
 {AUTHOR}
 """,
     faqs=[
-        ("Why is the player on another domain?", "asiancoastline.com is the listening room; justinhelmer.ca is the name portal."),
+        ("Why does this domain have its own player?", "The name has a branded player; asiancoastline.com remains a sister listening domain."),
         ("Do I need an account?", "No; favorites and queue are local to the browser."),
         ("Can I download the tracks?", "The player streams; store links are the purchase route."),
         ("Does it work on a phone?", "Yes; the player is responsive and installable."),
@@ -305,7 +305,7 @@ PAGES["privacy.html"] = dict(
   <h2>Other services</h2>
   <ul>
     <li><strong>GitHub Pages</strong> &mdash; hosts this static site and may keep access logs.</li>
-    <li><strong>asiancoastline.com</strong> &mdash; the canonical player; its privacy policy applies there.</li>
+    <li><strong>asiancoastline.com</strong> &mdash; a sister listening domain; its privacy policy applies there.</li>
     <li><strong>Google AdSense</strong> &mdash; advertising on editorial pages when active.</li>
     <li><strong>Feature.fm, Spotify, YouTube, Audius</strong> &mdash; store links; their policies apply.</li>
     <li><strong>Kick, Rumble, Twitch</strong> &mdash; live rooms; their policies apply.</li>

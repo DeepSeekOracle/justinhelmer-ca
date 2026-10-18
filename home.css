@@ -52,3 +52,12 @@ footer.site nav { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin-bottom:.7
 .donate-mod h2 { margin-top: 0; }
 .donate-mod .cta-row { margin-top: .85rem; }
 .btn.paypal { background: #0070ba; border-color: #0070ba; color: #fff; }
+
+@media (max-width: 900px) {
+  .home header.top { position: static; display: block; padding: .8rem 6vw; background: rgba(4,16,24,.96); }
+  .home .brand { display: block; margin-bottom: .3rem; }
+  .home header.top nav { display: flex; flex-wrap: wrap; gap: .3rem .7rem; width: 100%; }
+  .home nav a { margin-left: 0; font-size: .7rem; }
+  .home nav a.secondary { display: none; }
+  .hero { min-height: calc(100svh - 96px); }
+}

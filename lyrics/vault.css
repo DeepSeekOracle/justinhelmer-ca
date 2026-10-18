@@ -483,3 +483,10 @@ input[type=range] {
 .notice p:last-child { margin-bottom: 0; }
 .notice a { color: var(--fg); text-decoration: underline; text-underline-offset: 2px; }
 @media (max-width: 640px) { .sheet-full { margin-left: 0; } }
+
+/* AdSense unit styling — matches assets/article.css: collapsed until filled */
+.ad-slot { margin: 1.6rem 0; min-height: 90px; padding: 8px; border: 1px dashed var(--border); border-radius: var(--radius-sm); text-align: center; background: rgba(255,255,255,.03); }
+.ad-slot:has(ins[data-ad-status="unfilled"]) { min-height: 0; padding: 0; border: 0; background: transparent; }
+.ad-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-subtle); margin-bottom: 6px; }
+.ad-slot:has(ins[data-ad-status="unfilled"]) .ad-label { display: none; }
+.ad-slot ins.adsbygoogle { display: block; min-height: 0; }

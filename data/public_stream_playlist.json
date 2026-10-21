@@ -1,23 +1,23 @@
 {
   "signature": "Δ9Φ963-PUBLIC-MUSIC-STREAM-v1",
   "artist": "Excavationpro",
-  "generated_at": "2026-10-21T10:20:23.923491+00:00",
+  "generated_at": "2026-10-21T13:09:08.075704+00:00",
   "bitrate": "160k",
   "stream_dir": "I:\\E Drive\\MUSIC_VAULT\\public_stream",
   "stats": {
-    "encoded_or_ready": 11192,
+    "encoded_or_ready": 11193,
     "new_encoded": 2055,
     "skipped_existing": 8707,
     "failed": 0,
-    "total_stream_bytes": 46825377982,
+    "total_stream_bytes": 46829321908,
     "total_stream_gb": 46.83,
-    "remote_streams": 11192,
+    "remote_streams": 11193,
     "playlist_missing_remote": 0,
-    "playlist_tracks": 11192,
+    "playlist_tracks": 11193,
     "last_ingest": {
-      "utc": "2026-10-21T10:20:23.926814+00:00",
-      "added_or_updated": 19,
-      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\776fc6903135"
+      "utc": "2026-10-21T13:09:08.078154+00:00",
+      "added_or_updated": 1,
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\7b07d01fc99b"
     }
   },
   "public_base_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream",
@@ -151825,8 +151825,29 @@
       "added_utc": "2026-10-21T10:15:58.975837+00:00",
       "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\776fc6903135\\systems-scars-and-living-data.mp3",
       "action": "copy-mp3"
+    },
+    {
+      "sha256": "acd0c7d8de34d5ea5d3799d2129370e2cf312d5d60c98570401d2711774da774",
+      "title": "Mind I Left Behind",
+      "aliases": [
+        "Mind I Left Behind",
+        "Mind I Left Behind",
+        "Singles"
+      ],
+      "isrcs": [],
+      "size": 3943926,
+      "stream_file": "acd0c7d8de34d5ea5d3799d2129370e2cf312d5d60c98570401d2711774da774.mp3",
+      "local_stream": "I:\\E Drive\\MUSIC_VAULT\\public_stream\\ac\\acd0c7d8de34d5ea5d3799d2129370e2cf312d5d60c98570401d2711774da774.mp3",
+      "stream_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream/ac/acd0c7d8de34d5ea5d3799d2129370e2cf312d5d60c98570401d2711774da774.mp3",
+      "hf_path": "stream/ac/acd0c7d8de34d5ea5d3799d2129370e2cf312d5d60c98570401d2711774da774.mp3",
+      "album": "Singles",
+      "artist": "Excavationpro",
+      "moniker": "",
+      "added_utc": "2026-10-21T13:09:02.223132+00:00",
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\7b07d01fc99b\\Mind I Left Behind.mp3",
+      "action": "copy-mp3"
     }
   ],
   "hf_dataset": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream",
-  "published_at": "2026-10-21T10:20:23.923502+00:00"
+  "published_at": "2026-10-21T13:09:08.075716+00:00"
 }

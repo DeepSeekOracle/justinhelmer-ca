@@ -1,20 +1,20 @@
 {
   "signature": "Δ9Φ963-PUBLIC-MUSIC-STREAM-v1",
   "artist": "Excavationpro",
-  "generated_at": "2026-11-15T22:47:18.972255+00:00",
+  "generated_at": "2026-11-21T11:31:13.100182+00:00",
   "bitrate": "160k",
   "stream_dir": "I:\\E Drive\\MUSIC_VAULT\\public_stream",
   "stats": {
-    "playlist_tracks": 11400,
-    "encoded_or_ready": 11400,
-    "remote_streams": 11400,
-    "total_stream_bytes": 47532639978,
-    "total_stream_gb": 47.53,
+    "playlist_tracks": 11401,
+    "encoded_or_ready": 11401,
+    "remote_streams": 11401,
+    "total_stream_bytes": 47537681863,
+    "total_stream_gb": 47.54,
     "failed": 0,
     "last_ingest": {
-      "utc": "2026-11-15T22:47:18.974462+00:00",
-      "added_or_updated": 191,
-      "source": "excavationpro.ca published catalog"
+      "utc": "2026-11-21T11:31:13.102272+00:00",
+      "added_or_updated": 1,
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\1d03bce9f2de"
     }
   },
   "public_base_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream",
@@ -156190,8 +156190,29 @@
       "added_utc": "2026-11-15T21:21:27.843253+00:00",
       "source": "C:\\Users\\justi\\Music\\Why Me\\New folder\\When I Break.mp3",
       "action": "copy-mp3"
+    },
+    {
+      "sha256": "79af55b2f8c68b07f795287b31cdc3366fd2c840b42b8294bee37bb57fdbb35a",
+      "title": "20261121-050357 song ska-hopeful-trumpet-vivacious",
+      "aliases": [
+        "20261121-050357 song ska-hopeful-trumpet-vivacious",
+        "20261121-050357 song ska-hopeful-trumpet-vivacious",
+        "Singles"
+      ],
+      "isrcs": [],
+      "size": 5041885,
+      "stream_file": "79af55b2f8c68b07f795287b31cdc3366fd2c840b42b8294bee37bb57fdbb35a.mp3",
+      "local_stream": "I:\\E Drive\\MUSIC_VAULT\\public_stream\\79\\79af55b2f8c68b07f795287b31cdc3366fd2c840b42b8294bee37bb57fdbb35a.mp3",
+      "stream_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream/79/79af55b2f8c68b07f795287b31cdc3366fd2c840b42b8294bee37bb57fdbb35a.mp3",
+      "hf_path": "stream/79/79af55b2f8c68b07f795287b31cdc3366fd2c840b42b8294bee37bb57fdbb35a.mp3",
+      "album": "Singles",
+      "artist": "Excavationpro",
+      "moniker": "",
+      "added_utc": "2026-11-21T11:30:57.899443+00:00",
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\1d03bce9f2de\\20261121-050357_song_ska-hopeful-trumpet-vivacious.mp3",
+      "action": "copy-mp3"
     }
   ],
   "hf_dataset": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream",
-  "published_at": "2026-11-15T22:47:18.972272+00:00"
+  "published_at": "2026-11-21T11:31:13.100192+00:00"
 }

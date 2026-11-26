@@ -1,20 +1,20 @@
 {
   "signature": "Δ9Φ963-PUBLIC-MUSIC-STREAM-v1",
   "artist": "Excavationpro",
-  "generated_at": "2026-11-21T13:12:58.558075+00:00",
+  "generated_at": "2026-11-26T08:45:06.031302+00:00",
   "bitrate": "160k",
   "stream_dir": "I:\\E Drive\\MUSIC_VAULT\\public_stream",
   "stats": {
-    "playlist_tracks": 11403,
-    "encoded_or_ready": 11403,
-    "remote_streams": 11403,
-    "total_stream_bytes": 47543488554,
-    "total_stream_gb": 47.54,
+    "playlist_tracks": 11404,
+    "encoded_or_ready": 11404,
+    "remote_streams": 11404,
+    "total_stream_bytes": 47546704795,
+    "total_stream_gb": 47.55,
     "failed": 0,
     "last_ingest": {
-      "utc": "2026-11-21T13:12:58.560217+00:00",
+      "utc": "2026-11-26T08:45:06.034004+00:00",
       "added_or_updated": 1,
-      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\19dd2349c7f7"
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\03aeb9d58177"
     }
   },
   "public_base_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream",
@@ -156253,8 +156253,29 @@
       "added_utc": "2026-11-21T13:12:56.059787+00:00",
       "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\19dd2349c7f7\\Sunrise on the Porch.wav",
       "action": "encode-160k"
+    },
+    {
+      "sha256": "6ac21beea1f6947534c10df8d3dff5440070cc5422816c15bf13054eb8d29ebd",
+      "title": "Fine feat Justin Helmer",
+      "aliases": [
+        "Fine feat Justin Helmer",
+        "Fine feat Justin Helmer",
+        "Singles"
+      ],
+      "isrcs": [],
+      "size": 3216241,
+      "stream_file": "6ac21beea1f6947534c10df8d3dff5440070cc5422816c15bf13054eb8d29ebd.mp3",
+      "local_stream": "I:\\E Drive\\MUSIC_VAULT\\public_stream\\6a\\6ac21beea1f6947534c10df8d3dff5440070cc5422816c15bf13054eb8d29ebd.mp3",
+      "stream_url": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream/resolve/main/stream/6a/6ac21beea1f6947534c10df8d3dff5440070cc5422816c15bf13054eb8d29ebd.mp3",
+      "hf_path": "stream/6a/6ac21beea1f6947534c10df8d3dff5440070cc5422816c15bf13054eb8d29ebd.mp3",
+      "album": "Singles",
+      "artist": "Excavationpro",
+      "moniker": "",
+      "added_utc": "2026-11-26T08:44:53.806824+00:00",
+      "source": "C:\\Users\\justi\\Music\\Signal\\portal\\music_uploads\\03aeb9d58177\\Fine feat Justin Helmer.wav",
+      "action": "encode-160k"
     }
   ],
   "hf_dataset": "https://huggingface.co/datasets/DeepSeekOracle/excavationpro-music-stream",
-  "published_at": "2026-11-21T13:12:58.558087+00:00"
+  "published_at": "2026-11-26T08:45:06.031312+00:00"
 }
